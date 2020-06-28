@@ -1,0 +1,51 @@
+<h1>Listado de Heroes</h1>
+<hr>
+<div class="row">
+    <div class="col text-right">
+        <button class="btn btn-primary" routerLink="Heroe/Nuevo"><i class="fa fa-plus"></i>Agregar</button>
+    </div>
+</div>
+<table class="table table-dark mt-4">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Poder</th>
+            <th>Vivo</th>
+            <th>Tools</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of Heores; let i = index">
+            <td>{{item.idHeroe}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.poder}}</td>
+            <td>
+                <label *ngIf="item.vivo" class="badge badge-info">Vivo</label>
+                <label *ngIf="!item.vivo" class="badge badge-danger">Muerto</label>
+            </td>
+            <td>
+                <button 
+                    (click)="Delete(item.idHeroe, i)"
+                    class="btn btn-danger mr-2">
+                    <i class="text-white fa fa-trash"></i>
+                </button>
+                <button class="btn btn-info"
+                        [routerLink]="['/Heroes', item.idHeroe]">
+                    <i class="text-white fa fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="!Cargar && Heores.length === 0" class="animated fadeIn slow alert alert-warning mt-4 text-center" role="alert">
+    <h4 class="alert-heading">No hay Registros</h4>
+    <p><i class="fa fa-exclamation fa-2x"></i></p>
+</div>
+
+<div *ngIf="Cargar" class="animated fadeIn slow alert alert-primary mt-4 text-center" role="alert">
+    <h4 class="alert-heading">Cargando</h4>
+    <p><i class="fa fa-sync-alt fa-spin fa-2x"></i></p>
+    <p class="mb-2">Espere por favor</p>
+</div>
